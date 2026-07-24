@@ -1,0 +1,39 @@
+[
+  {
+    "name": "🎬 ดูหนังและซีรีส์",
+    "slug": "movies",
+    "icon": "🎬",
+    "products": [
+      { "name": "Netflix Premium", "price": 100, "description": "Premium 4K Account" },
+      { "name": "Disney+", "price": 99, "description": "Disney+ Hotstar" },
+      { "name": "Max", "price": 150, "description": "Max Subscription" },
+      { "name": "Prime Video", "price": 80, "description": "Amazon Prime Video" },
+      { "name": "Apple TV+", "price": 120, "description": "Apple TV Plus" }
+    ]
+  },
+  {
+    "name": "🎵 ฟังเพลง",
+    "slug": "music",
+    "icon": "🎵",
+    "products": [
+      { "name": "Spotify", "price": 130, "description": "Premium Individual" },
+      { "name": "Apple Music", "price": 129, "description": "Individual Plan" },
+      { "name": "YouTube Music", "price": 119, "description": "Premium" },
+      { "name": "Deezer", "price": 100, "description": "Premium" },
+      { "name": "TIDAL", "price": 200, "description": "HiFi" }
+    ]
+  },
+  {
+    "name": "🤖 AI",
+    "slug": "ai",
+    "icon": "🤖",
+    "products": [
+      { "name": "OpenAI (ChatGPT)", "price": 700, "description": "ChatGPT Plus" },
+      { "name": "Google (Gemini)", "price": 750, "description": "Gemini Advanced" },
+      { "name": "Anthropic (Claude)", "price": 700, "description": "Claude Pro" },
+      { "name": "Perplexity AI", "price": 600, "description": "Pro Account" },
+      { "name": "xAI (Grok)", "price": 500, "description": "Premium" },
+      { "name": "Microsoft (Copilot)", "price": 700, "description": "Copilot Pro" }
+    ]
+  }
+]
