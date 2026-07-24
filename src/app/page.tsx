@@ -5,10 +5,16 @@ import { featureTiles } from '@/config/site';
 import { supplierApi } from '@/lib/supplier';
 import type { Product } from '@/lib/types';
 
+// บังคับให้หน้านี้ดึงข้อมูลตอนรันเว็บจริงเท่านั้น ไม่ต้องดึงตอน Build
+export const dynamic = 'force-dynamic';
+
 async function getProducts() {
   try {
-    return await supplierApi.products();
-  } catch {
+    const data = await supplierApi.products();
+    // ตรวจสอบให้แน่ใจว่าเป็น Array ถ้าไม่ใช่ให้ส่งค่าว่างกลับไป
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error("Fetch products error:", error);
     return [] as Product[];
   }
 }
@@ -18,6 +24,7 @@ export default async function Home() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-8">
+      {/* ส่วน Hero และ Features (คงเดิม) */}
       <section className="glass grid overflow-hidden rounded-[2rem] p-8 md:grid-cols-[1.2fr_.8fr]">
         <div>
           <span className="rounded-full bg-fuchsia-500/20 px-4 py-2 font-bold">🔥 ร้านขายดีอันดับ 1</span>
@@ -56,12 +63,20 @@ export default async function Home() {
           <h2 className="text-3xl font-black">🔥 สินค้าแนะนำ</h2>
           <Button href="/products" variant="ghost">ดูทั้งหมด →</Button>
         </div>
-        {products.length ? (
-          <div className="grid-auto">{products.slice(0, 8).map((product) => <ProductCard key={product.id} product={product} />)}</div>
+        {/* เพิ่มการเช็ค Array.isArray อีกชั้นเพื่อความชัวร์ */}
+        {Array.isArray(products) && products.length > 0 ? (
+          <div className="grid-auto">
+            {products.slice(0, 8).map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
         ) : (
           <Card>
-            <b>Supplier API ยังไม่ถูกตั้งค่า</b>
-            <p className="mt-2 text-white/70">ระบบไม่เก็บสินค้าถาวรในฐานข้อมูล โปรดตั้งค่า SUPPLIER_API_URL, SUPPLIER_API_KEY และ SUPPLIER_API_SECRET เพื่อแสดงสินค้าจริงจาก Supplier API</p>
+            <b>ไม่พบข้อมูลสินค้าจาก Supplier</b>
+            <p className="mt-2 text-white/70">
+              โปรดตรวจสอบการตั้งค่า SUPPLIER_API_URL ใน Vercel Environment Variables 
+              หรือตรวจสอบว่า API ยังทำงานอยู่
+            </p>
           </Card>
         )}
       </section>
